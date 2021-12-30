@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version 2 index</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="css/style.css"> 
+    <link rel='stylesheet' id='js_composer_front-css'  href='https://nouveauconfortdesign.com/wp-content/plugins/js_composer/assets/css/js_composer.min.css?ver=6.5.0' type='text/css' media='all' />-->
+
+    <style>
+.calcul .plan input[type="radio"]{
+	display: none;
+}
+.calcul{font-size: 1.2rem;}
+.calcul div{margin-bottom: 10px;}
+.calcul .plan{
+  line-height:2rem;}
+.calcul .plan label{
+  text-align: center;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #13162b;
+  font-weight: bold;
+  transition: all .5s ease-in-out;
+}
+.calcul .plan input:checked + label.silver{
+	background-color: #203864;
+    color: aliceblue;
+}
+.calcul .plan input:checked + label.gold{
+	background-color: #385723;
+    color: aliceblue;
+}
+.calcul .plan input:checked + label.platine{
+	background-color: #960000;
+    color: aliceblue;
+}
+.calcul input{
+    padding:.375rem .75rem;
+    font-size:1rem;
+    color:#495057;
+    background-color:#fff;
+    background-clip:padding-box;
+    border:1px solid #ced4da;
+    border-radius:.25rem;
+    transition:border-color .15s ease-in-out
+}
+.calcul #metrage-pack{width: 21%;}
+.calcul #montent-devis{width: 50%;}
+
+/* via site */
+.calcul input[type="radio"] + label:before{
+            background-color: transparent;
+            border: none;
+            content: none;
+
+        }
+        .calcul input[type="radio"]:checked{content: none;}
+    </style>
+
+</head>
+<body>
+
+    <div class="vc_row-flex mt-5">
+        <div class="vc_row calcul"><!-- calcul -->
+            <div class="vc_col-md-4 vc_col-sm-12">Taille de l’appartement m² = <input type="number" class="w-25" placeholder="Taille m²" onchange="calcul()" maxlength="99999" id="metrage-pack" min="1"></div>
+            <div class="vc_col-md-4 vc_col-sm-12 plan">
+                Pack choisi :
+                <input type="radio" id="silver" name="pack" value="silver" onchange="calcul()" checked="checked">
+                <label for="silver" class="silver">Silver</label>
+                <input type="radio" id="gold" name="pack" value="gold" onchange="calcul()">
+                <label for="gold" class="gold">Gold</label>
+                <input type="radio" id="platine" name="pack" value="platine" onchange="calcul()">
+                <label for="platine" class="platine">Platine</label>
+            </div>
+            <div class="vc_col-md-4 vc_col-sm-12">Votre devis : <input type="text" readonly="readonly" id="montent-devis" placeholder="0 MAD"></div>
+        </div>
+    </div>
+
+<!--     <div class="container mt-5">
+        <div class="row calcul">
+            <div class="col-md-4">Taille de l’appartement m² = <input type="number" class="w-25" onchange="calcul()" id="metrage-pack" min="1"></div>
+            <div class="col-md-4 plan">
+                <span>Pack choisi :</span>
+                <input type="radio" id="silver" name="pack" value="silver" onchange="calcul()" checked="checked">
+                <label for="silver" class="silver">Silver</label>
+                <input type="radio" id="gold" name="pack" value="gold" onchange="calcul()">
+                <label for="gold" class="gold">Gold</label>
+                <input type="radio" id="platine" name="pack" value="platine" onchange="calcul()">
+                <label for="platine" class="platine">Platine</label>
+            </div>
+            <div class="col-md-4">Votre devis : <input type="text" readonly="readonly" id="montent-devis"></div>
+        </div>
+    </div> -->
+
+
+
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- <script src="js/script.main.js"></script> -->
+    <script>
+        let metrage = document.getElementById("metrage-pack");
+        metrage.addEventListener("keyup", calcul);
+        function calcul(){
+            let pack = document.getElementsByName("pack");
+            let metrage = document.getElementById("metrage-pack");
+            let montent = document.getElementById("montent-devis");
+            pack.forEach(function(item){
+                if (item.checked && item.value == "silver")
+                    montent.value = eval(metrage.value * 690) + " MAD";
+                else if(item.checked && item.value == "gold")
+                    montent.value = eval(metrage.value * 990) + " MAD";
+                else if (item.checked && item.value == "platine")
+                    montent.value = eval(metrage.value * 1290) + " MAD";
+            });
+        }
+
+
+        //document.addEventListener('change', metrage.dispatchEvent());
+        /* metrage.addEventListener("keyup", function(){
+            let pack = document.getElementsByName("pack");
+            let montent = document.getElementById("montent-devis");
+            pack.forEach(function(item,val){
+                if (item.checked && item.value == "silver")
+                    montent.value = eval(metrage.value * 690);
+                else if(item.checked && item.value == "gold")
+                    montent.value = eval(metrage.value * 990);
+                else if (item.checked && item.value == "platine")
+                    montent.value = eval(metrage.value * 1290);
+            });
+        }); */
+
+            /*     function calcul(val)
+        {
+            
+            let pack = document.getElementsByName("pack");
+            let montent = document.getElementById("montent-devis");
+            pack.forEach(function(item,val){
+                if (item.checked && item.value == "silver")
+                    montent.value = eval(val * 690);
+                else if(item.checked && item.value == "gold")
+                    montent.value = eval(val * 990);
+                else if (item.checked && item.value == "platine")
+                    montent.value = eval(val * 1290);
+            });
+        } */
+/* function calcul(){
+    var nbrh =  document.getElementById('nbrheBs').value;
+     var base = document.getElementById('baseBs').value;
+	document.getElementById("#za").value = eval(nbrh * base);
+} */
+    </script>    
+</body>
+</html>
